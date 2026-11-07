@@ -47,7 +47,13 @@ Para Anthropic, cambia `LLM_PROVIDER` a `anthropic` y ajusta `LLM_MODEL` al mode
 python main.py
 ```
 
-El script pregunta «¿Qué es la entropía?» una vez con respuesta completa y otra vez en streaming. Cada llamada consume tokens de la API configurada.
+El script te pide una pregunta. También podés pasarla directamente:
+
+```bash
+python main.py "Explicame qué es la entropía"
+```
+
+La misma pregunta se envía una vez en modo normal y otra en streaming. Cada ejecución hace dos consultas a la API configurada.
 
 Para ejecutar las pruebas locales sin consumir créditos de API:
 
