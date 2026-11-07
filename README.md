@@ -14,6 +14,21 @@ cp .env.example .env
 ```
 
 Completa la clave correspondiente en `.env`. El archivo `.env` está excluido de Git.
+Las credenciales se leen únicamente de ese archivo local, no de variables del sistema.
+
+## Estructura
+
+```text
+unified_llm/
+├── schemas.py          # Validación de mensajes, configuración y respuestas
+├── settings.py         # Lectura del .env local
+├── manager.py          # Selección del proveedor
+├── base.py             # Contrato asíncrono común
+├── errors.py           # Errores controlados
+└── providers/          # Adaptadores OpenAI y Anthropic
+main.py                 # Prueba manual
+tests/                  # Pruebas unitarias
+```
 
 ## Configuración
 
@@ -43,11 +58,11 @@ python -m unittest discover -s tests -v
 ## Uso desde Python
 
 ```python
-from clients import AsyncLLMManager
-from schemas import ChatMessage, ModelConfig
+from pathlib import Path
+from unified_llm import ChatMessage
+from unified_llm.settings import manager_from_env
 
-config = ModelConfig(provider="openai", model="gpt-4o-mini", temperature=0.7, max_tokens=512)
-manager = AsyncLLMManager(config, api_key="TU_CLAVE")
+manager = manager_from_env(Path(".env"))
 messages = [ChatMessage(role="user", content="Hola")]
 
 response = await manager.generate(messages)

@@ -5,8 +5,9 @@ import httpx
 import openai
 from pydantic import ValidationError
 
-from clients import AnthropicClient, AsyncLLMManager, OpenAIClient
-from schemas import ChatMessage, ModelConfig
+from unified_llm import AsyncLLMManager, ChatMessage, ModelConfig
+from unified_llm.providers import AnthropicClient, OpenAIClient
+from unified_llm.settings import manager_from_env
 
 
 class SchemaTests(unittest.TestCase):
